@@ -1,11 +1,15 @@
-from __future__ import annotations
-
 import io
 from pathlib import Path
 
 from PIL import Image
 
-from .config import DEFAULT_BACKEND, DEFAULT_HF_MODEL_ID, DEFAULT_HYBRID_UNIVFD_WEIGHT
+from .config import (
+    DEFAULT_BACKEND,
+    DEFAULT_HF_MODEL_ID,
+    DEFAULT_HYBRID_PLUS_PRIMARY_WEIGHT,
+    DEFAULT_HYBRID_UNIVFD_WEIGHT,
+    DEFAULT_ULTRA_PRIMARY_WEIGHT,
+)
 from .model import create_detector
 
 
@@ -17,6 +21,8 @@ def create_app(
     weight_path: str | Path | None = None,
     hf_model: str = DEFAULT_HF_MODEL_ID,
     hybrid_univfd_weight: float = DEFAULT_HYBRID_UNIVFD_WEIGHT,
+    hybrid_plus_primary_weight: float = DEFAULT_HYBRID_PLUS_PRIMARY_WEIGHT,
+    ultra_primary_weight: float = DEFAULT_ULTRA_PRIMARY_WEIGHT,
 ):
     try:
         from fastapi import FastAPI, File, UploadFile
@@ -30,6 +36,8 @@ def create_app(
         weight_path=weight_path,
         hf_model=hf_model,
         hybrid_univfd_weight=hybrid_univfd_weight,
+        hybrid_plus_primary_weight=hybrid_plus_primary_weight,
+        ultra_primary_weight=ultra_primary_weight,
     )
     app = FastAPI(title="AI Image Detector", version="0.3.0")
 
