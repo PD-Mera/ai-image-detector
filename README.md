@@ -173,6 +173,23 @@ Then call:
 curl -F "file=@image.jpg" http://127.0.0.1:8000/detect
 ```
 
+## Docker (offline runtime)
+
+The Docker image downloads the default UnivFD assets during `docker compose build`
+and stores them inside the image. After the build finishes, the API can run without
+Internet access:
+
+```bash
+docker compose build
+docker compose up -d
+curl -F "file=@image.jpg" http://127.0.0.1:8000/detect
+```
+
+The compose service uses the CPU `univfd` backend by default. Override
+`AIDETECTOR_PORT`, `AIDETECTOR_BACKEND`, `AIDETECTOR_DEVICE`, or
+`AIDETECTOR_THRESHOLD` when needed. The baked-in cache covers the default `univfd`
+backend; other backends need their own model assets added to the image.
+
 ## Benchmarks
 
 ### Small Local Smoke Test
