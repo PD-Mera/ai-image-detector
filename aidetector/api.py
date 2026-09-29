@@ -45,7 +45,7 @@ def create_app(
     def health() -> dict:
         return {"status": "ok", "model": detector.model_info()}
 
-    @app.post("/detect")
+    @app.post("/api/v1/ai-image-detect")
     async def detect(file: UploadFile = File(...)) -> dict:
         content = await file.read()
         with Image.open(io.BytesIO(content)) as image:
